@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { countConnections } from "../helpers/check_connect";
+import config from "../configs/config_mongodb";
 
-const connectionString = `mongodb://admin:password@localhost:27017`;
+const connectionString = `${config.db.connectionString}`;
 
 class Database {
   private static instance: Database;
@@ -20,6 +21,7 @@ class Database {
     mongoose
       .connect(connectionString, {
         maxPoolSize: 50,
+        dbName: config.db.name,
       })
       .then(() => {
         console.log("Connected to MongoDB");

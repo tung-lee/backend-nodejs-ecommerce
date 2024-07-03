@@ -4,6 +4,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { checkOverload } from "./helpers/check_connect";
 
+require("dotenv").config();
+
 const app: Express = express();
 
 // init middlewares
