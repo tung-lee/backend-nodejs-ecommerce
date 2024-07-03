@@ -3,12 +3,11 @@ import crypto from "node:crypto";
 
 import shopModel from "../models/shop.model";
 import { ShopRoles } from "../types";
-
-interface SignUpRequest {
-  name: string;
-  email: string;
-  password: string;
-}
+import KeyTokenService from "./keyToken.service";
+import { ObjectId } from "mongoose";
+import { createTokenPair } from "../auth/authUtils";
+import { SignUpRequest } from "../types/request";
+import { getInfoData } from "../utils";
 
 class AccessService {
   static signUp = async ({ name, email, password }: SignUpRequest) => {
@@ -33,16 +32,53 @@ class AccessService {
 
       if (newShop) {
         const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
-          modulusLength: 2048,
+          modulusLength: 4096,
+          publicKeyEncoding: {
+            type: "pkcs1",
+            format: "pem",
+          },
+          privateKeyEncoding: {
+            type: "pkcs1",
+            format: "pem",
+          },
         });
         console.log(privateKey, publicKey);
-      }
 
-      return {
-        code: "xxxx",
-        message: "Shop registered successfully",
-        status: "success",
-      };
+        const publicKeyString = await KeyTokenService.createKeyToken({
+          shopId: newShop._id as ObjectId,
+          publicKey,
+        });
+
+        if (!publicKeyString) {
+          return {
+            code: "xxxx",
+            message: "publicKeyString error",
+          };
+        }
+
+        const publicKeyObject = crypto.createPublicKey(publicKeyString);
+        const tokens = await createTokenPair({
+          payload: {
+            shopId: newShop._id as ObjectId,
+            email: newShop.email,
+          },
+          publicKey: publicKeyObject,
+          privateKey,
+        });
+
+        console.log(`Created Token Success::`, tokens);
+
+        return {
+          code: 201,
+          metadata: {
+            shop: getInfoData({
+              fields: ["_id", "name", "email"],
+              object: newShop,
+            }),
+            tokens,
+          },
+        };
+      }
     } catch (err) {
       return {
         code: "xxx",

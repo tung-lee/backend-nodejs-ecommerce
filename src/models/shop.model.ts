@@ -1,8 +1,8 @@
 import { model, Schema } from "mongoose";
 import { Shop, ShopStatus } from "../types";
 
-const DOCUMENT_NAME = "shop";
-const COLLECTION_NAME = "shops";
+const DOCUMENT_NAME = "Shop";
+const COLLECTION_NAME = "Shops";
 
 const shopSchema = new Schema<Shop>(
   {
@@ -19,7 +19,7 @@ const shopSchema = new Schema<Shop>(
       default: ShopStatus.INACTIVE,
     },
     verify: { type: Boolean, default: false },
-    roles: { type: [], default: [] },
+    roles: { type: [String], default: [] },
   },
   {
     timestamps: true,
