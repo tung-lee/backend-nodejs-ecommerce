@@ -1,8 +1,10 @@
 import compression from "compression";
-import express, { Request, Response, Express, NextFunction } from "express";
+import express, { Express } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+
 import { checkOverload } from "./helpers/check_connect";
+import router from "./routes";
 
 require("dotenv").config();
 
@@ -18,12 +20,7 @@ require("./db/init_mongodb");
 checkOverload();
 
 // init routes
-app.get("/", (_req: Request, res: Response, _next: NextFunction) => {
-  const strCompress = "Hello World";
-  return res.status(200).json({
-    message: strCompress.repeat(10000),
-  });
-});
+app.use("", router);
 
 // handling errors
 
