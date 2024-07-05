@@ -2,6 +2,7 @@
 
 POST {{url_dev}}/shop/sign-up
 Content-Type: application/json
+x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
 
 {
 	"name": "Test",
