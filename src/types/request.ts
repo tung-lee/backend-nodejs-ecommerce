@@ -9,4 +9,5 @@ export interface SignUpRequest {
 export interface CreateKeyTokenRequest {
   shopId: ObjectId;
   publicKey: string;
+  privateKey: string;
 }

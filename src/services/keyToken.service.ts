@@ -5,11 +5,13 @@ class KeyTokenService {
   static createKeyToken = async ({
     shopId,
     publicKey,
+    privateKey,
   }: CreateKeyTokenRequest): Promise<string | null> => {
     try {
       const tokens = await keyTokenModel.create({
         shopId,
         publicKey,
+        privateKey,
       });
 
       return tokens ? tokens.publicKey : null;

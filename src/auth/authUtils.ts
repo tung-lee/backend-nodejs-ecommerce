@@ -1,13 +1,12 @@
 import JWT from "jsonwebtoken";
 import { ObjectId } from "mongoose";
-import crypto from "crypto";
 
 interface CreateTokenPairRequest {
   payload: {
     shopId: ObjectId;
     email: string;
   };
-  publicKey: crypto.KeyObject;
+  publicKey: string;
   privateKey: string;
 }
 
@@ -17,13 +16,11 @@ const createTokenPair = async ({
   privateKey,
 }: CreateTokenPairRequest) => {
   try {
-    const accessToken = JWT.sign(payload, privateKey, {
-      algorithm: "RS256",
+    const accessToken = JWT.sign(payload, publicKey, {
       expiresIn: "2 days",
     });
 
     const refreshToken = JWT.sign(payload, privateKey, {
-      algorithm: "RS256",
       expiresIn: "7 days",
     });
 
