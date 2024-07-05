@@ -1,10 +1,12 @@
 import compression from "compression";
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 
 import { checkOverload } from "./helpers/check_connect";
 import router from "./routes";
+import { StatusCodes } from "http-status-codes";
+import { NotFoundError } from "./core/error.response";
 
 require("dotenv").config();
 
@@ -25,5 +27,19 @@ checkOverload();
 app.use("", router);
 
 // handling errors
+app.use((_req: Request, _res: Response, next: NextFunction) => {
+  const error = new NotFoundError();
+  next(error);
+});
+
+// @ts-ignore - fix later
+app.use((err, _req: Request, res: Response, _next: NextFunction) => {
+  const statusCode = err.status || StatusCodes.INTERNAL_SERVER_ERROR;
+  return res.status(statusCode).json({
+    status: "error",
+    code: statusCode,
+    message: err.message || "Internal Server Error",
+  });
+});
 
 export default app;
