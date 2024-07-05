@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AccessService from "../services/access.service";
 import { SignUpRequest } from "../types/request";
+import { CreatedResponse } from "../core/success.response";
 
 class AccessController {
   static signUp = async (req: Request, res: Response, _next: NextFunction) => {
@@ -11,7 +12,13 @@ class AccessController {
       password: req.body.password,
     };
     let result = await AccessService.signUp(data);
-    return res.status(201).json(result);
+    return new CreatedResponse({
+      message: "Register OK!",
+      metadata: result,
+      options: {
+        limit: 10,
+      },
+    }).send(res);
   };
 }
 
