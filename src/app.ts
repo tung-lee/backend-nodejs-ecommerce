@@ -39,6 +39,7 @@ app.use((err, _req: Request, res: Response, _next: NextFunction) => {
     status: "error",
     code: statusCode,
     message: err.message || "Internal Server Error",
+    // stack: err.stack, // development only
   });
 });
 

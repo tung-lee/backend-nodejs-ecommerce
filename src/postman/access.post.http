@@ -12,11 +12,18 @@
 # }
 
 # Login
-POST {{url_dev}}/shop/login
+# POST {{url_dev}}/shop/login
+# Content-Type: application/json
+# x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
+
+# {
+# 	"email": "test@gmail.com",
+# 	"password": "test123"
+# }
+
+# Logout
+POST {{url_dev}}/shop/logout
 Content-Type: application/json
 x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
-
-{
-	"email": "test@gmail.com",
-	"password": "test123"
-}
+x-shop-id: 66875ab6dc02468363b8469b
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg3NWFiNmRjMDI0NjgzNjNiODQ2OWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMjM5NTM5LCJleHAiOjE3MjA0MTIzMzl9.6rUqaCcGyHBPsFEEHd3-OY6TVqtQbVdMSbAkTvdf3tg

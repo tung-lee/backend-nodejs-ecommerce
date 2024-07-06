@@ -10,8 +10,18 @@ import { LoginRequest, SignUpRequest } from "../types/request";
 import { getInfoData } from "../utils";
 import { AuthError, BadRequestError } from "../core/error.response";
 import ShopService from "./shop.service";
+import { KeyToken } from "../types/keytoken";
 
 class AccessService {
+  static logout = async (keyStore: KeyToken) => {
+    if (!keyStore._id) {
+      throw new BadRequestError("Error: id of keyStore not found");
+    }
+    const delKey = await KeyTokenService.removeById(keyStore._id);
+    console.log(delKey);
+    return delKey;
+  };
+
   /*
     1 - Check email in db
     2 - Match password

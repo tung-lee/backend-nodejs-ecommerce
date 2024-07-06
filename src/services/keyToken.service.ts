@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+
 import keyTokenModel from "../models/keytoken.model";
 import { CreateKeyTokenRequest } from "../types/request";
 
@@ -41,6 +43,14 @@ class KeyTokenService {
       console.error(err);
       return null;
     }
+  };
+
+  static findByShopId = async (shopId: string) => {
+    return await keyTokenModel.findOne({ shopId }).lean();
+  };
+
+  static removeById = async (id: ObjectId) => {
+    return await keyTokenModel.findByIdAndDelete(id);
   };
 }
 
