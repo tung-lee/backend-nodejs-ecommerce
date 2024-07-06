@@ -6,13 +6,35 @@ class KeyTokenService {
     shopId,
     publicKey,
     privateKey,
+    refreshToken,
   }: CreateKeyTokenRequest): Promise<string | null> => {
     try {
-      const tokens = await keyTokenModel.create({
-        shopId,
-        publicKey,
-        privateKey,
-      });
+      // lv0
+      // const tokens = await keyTokenModel.create({
+      //   shopId,
+      //   publicKey,
+      //   privateKey,
+      // });
+
+      // return tokens ? tokens.publicKey : null;
+
+      // level xxx
+
+      const tokens = await keyTokenModel.findOneAndUpdate(
+        {
+          shopId,
+        },
+        {
+          publicKey,
+          privateKey,
+          refreshToken,
+          refreshTokenUsed: [],
+        },
+        {
+          upsert: true,
+          new: true,
+        }
+      );
 
       return tokens ? tokens.publicKey : null;
     } catch (err) {

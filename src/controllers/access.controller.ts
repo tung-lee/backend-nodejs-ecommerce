@@ -1,9 +1,23 @@
 import { NextFunction, Request, Response } from "express";
 import AccessService from "../services/access.service";
-import { SignUpRequest } from "../types/request";
-import { CreatedResponse } from "../core/success.response";
+import { LoginRequest, SignUpRequest } from "../types/request";
+import { CreatedResponse, SuccessResponse } from "../core/success.response";
 
 class AccessController {
+  static login = async (req: Request, res: Response, _next: NextFunction) => {
+    console.log(`[POST] /shop/login`, req.body);
+    let data: LoginRequest = {
+      email: req.body.email,
+      password: req.body.password,
+      refreshToken: req.body.refreshToken,
+    };
+    let result = await AccessService.login(data);
+    return new SuccessResponse({
+      message: "Login OK!",
+      metadata: result,
+    }).send(res);
+  };
+
   static signUp = async (req: Request, res: Response, _next: NextFunction) => {
     console.log(`[POST] /shop/sign-up`, req.body);
     let data: SignUpRequest = {

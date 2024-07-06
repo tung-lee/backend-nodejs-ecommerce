@@ -4,5 +4,6 @@ export interface KeyToken extends Document {
   shopId: ObjectId;
   privateKey: string;
   publicKey: string;
-  refreshToken: string[];
+  refreshTokensUsed: string[];
+  refreshToken: string;
 }

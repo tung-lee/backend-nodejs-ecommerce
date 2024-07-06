@@ -6,11 +6,69 @@ import { ShopRoles } from "../types";
 import KeyTokenService from "./keyToken.service";
 import { ObjectId } from "mongoose";
 import { createTokenPair } from "../auth/authUtils";
-import { SignUpRequest } from "../types/request";
+import { LoginRequest, SignUpRequest } from "../types/request";
 import { getInfoData } from "../utils";
-import { BadRequestError } from "../core/error.response";
+import { AuthError, BadRequestError } from "../core/error.response";
+import ShopService from "./shop.service";
 
 class AccessService {
+  /*
+    1 - Check email in db
+    2 - Match password
+    3 - create tokens (access, refresh) and save
+    4 - return data
+  */
+  static login = async ({ email, password }: LoginRequest) => {
+    // 1.
+    const foundShop = await ShopService.findByEmail({ email });
+    if (!foundShop) {
+      throw new BadRequestError("Error: Shop not registered");
+    }
+
+    // 2.
+    const matchPassword = await bcrypt.compare(password, foundShop.password);
+    if (!matchPassword) {
+      throw new AuthError("Authentication Error");
+    }
+
+    // 3.
+
+    // Create 2 secret key
+    const privateKey = crypto.randomBytes(64).toString("hex");
+    const publicKey = crypto.randomBytes(64).toString("hex");
+
+    // Create tokens (access, refresh)
+    let shopId = foundShop._id as ObjectId;
+
+    const tokens = await createTokenPair({
+      payload: {
+        shopId,
+        email: foundShop.email,
+      },
+      publicKey,
+      privateKey,
+    });
+
+    // save 2 secret key + refresh token
+    await KeyTokenService.createKeyToken({
+      shopId,
+      publicKey,
+      privateKey,
+      // @ts-ignore - fix later
+      refreshToken: tokens?.refreshToken,
+    });
+
+    return {
+      metadata: {
+        shop: getInfoData({
+          fields: ["_id", "name", "email"],
+          object: foundShop,
+        }),
+        tokens,
+      },
+    };
+  };
+
   static signUp = async ({ name, email, password }: SignUpRequest) => {
     // step 1: check if the shop is already registered
     const holderShop = await shopModel.findOne({ email }).lean();

@@ -4,6 +4,7 @@ enum ReasonStatusCode {
   CONFLICT = "Conflict Error",
   BAD_REQUEST = "Bad Request Error",
   NOT_FOUND = "Not Found",
+  UNAUTHORIZED = "Unauthorized Error",
 }
 
 class ErrorResponse extends Error {
@@ -33,4 +34,10 @@ class NotFoundError extends ErrorResponse {
   }
 }
 
-export { ConflictRequestError, BadRequestError, NotFoundError };
+class AuthError extends ErrorResponse {
+  constructor(message: string = ReasonStatusCode.UNAUTHORIZED) {
+    super(message, StatusCodes.UNAUTHORIZED);
+  }
+}
+
+export { ConflictRequestError, BadRequestError, NotFoundError, AuthError };
