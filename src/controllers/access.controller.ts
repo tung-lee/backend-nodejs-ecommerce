@@ -4,6 +4,19 @@ import { LoginRequest, SignUpRequest } from "../types/request";
 import { CreatedResponse, SuccessResponse } from "../core/success.response";
 
 class AccessController {
+  static handleRefreshToken = async (
+    req: Request,
+    res: Response,
+    _next: NextFunction
+  ) => {
+    console.log(`[POST] /shop/handle-refresh-token`, req.body);
+    let result = await AccessService.handleRefreshToken(req.body.refreshToken);
+    return new SuccessResponse({
+      message: "Get token OK!",
+      metadata: result,
+    }).send(res);
+  };
+
   static logout = async (req: Request, res: Response, _next: NextFunction) => {
     console.log(`[POST] /shop/logout`, req.body);
     // @ts-ignore - fix later

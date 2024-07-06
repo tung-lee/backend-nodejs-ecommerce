@@ -79,4 +79,8 @@ const authentication = async (
   } catch (err) {}
 };
 
-export { createTokenPair, authentication };
+const verifyJWT = async (token: string, secretKey: string) => {
+  return JWT.verify(token, secretKey);
+};
+
+export { createTokenPair, authentication, verifyJWT };

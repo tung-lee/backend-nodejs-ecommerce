@@ -5,6 +5,7 @@ enum ReasonStatusCode {
   BAD_REQUEST = "Bad Request Error",
   NOT_FOUND = "Not Found",
   UNAUTHORIZED = "Unauthorized Error",
+  FORBIDDEN = "Forbidden Error",
 }
 
 class ErrorResponse extends Error {
@@ -40,4 +41,16 @@ class AuthError extends ErrorResponse {
   }
 }
 
-export { ConflictRequestError, BadRequestError, NotFoundError, AuthError };
+class ForbiddenError extends ErrorResponse {
+  constructor(message: string = ReasonStatusCode.FORBIDDEN) {
+    super(message, StatusCodes.FORBIDDEN);
+  }
+}
+
+export {
+  ConflictRequestError,
+  BadRequestError,
+  NotFoundError,
+  AuthError,
+  ForbiddenError,
+};

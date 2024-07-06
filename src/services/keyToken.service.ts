@@ -52,6 +52,20 @@ class KeyTokenService {
   static removeById = async (id: ObjectId) => {
     return await keyTokenModel.findByIdAndDelete(id);
   };
+
+  static findByRefreshTokenUsed = async (refreshToken: string) => {
+    return await keyTokenModel
+      .findOne({ refreshTokensUsed: { $in: [refreshToken] } }) // refreshToken is in the array refreshTokensUsed
+      .lean();
+  };
+
+  static removeByShopId = async (shopId: string) => {
+    return await keyTokenModel.findOneAndDelete({ shopId });
+  };
+
+  static findByRefreshToken = async (refreshToken: string) => {
+    return await keyTokenModel.findOne({ refreshToken });
+  };
 }
 
 export default KeyTokenService;
