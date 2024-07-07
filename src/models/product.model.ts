@@ -89,9 +89,9 @@ const electronicsSchema = new Schema<Electronics>(
   }
 );
 
-export const ProductModel = model<Product>(DOCUMENT_NAME, productSchema);
-export const ClothingModel = model<Clothing>("Clothing", clothingSchema);
-export const ElectronicsModel = model<Electronics>(
+export const productModel = model<Product>(DOCUMENT_NAME, productSchema);
+export const clothingModel = model<Clothing>("Clothing", clothingSchema);
+export const electronicsModel = model<Electronics>(
   "Electronic",
   electronicsSchema
 );

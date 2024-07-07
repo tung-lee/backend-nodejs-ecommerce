@@ -1,0 +1,23 @@
+@url_dev=http://localhost:3000/v1/api
+
+# Create product
+POST {{url_dev}}/product
+Content-Type: application/json
+x-shop-id: 6689fe8cd865ca9e881db65b
+x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
+x-refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg5ZmU4Y2Q4NjVjYTllODgxZGI2NWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMzI3NzMwLCJleHAiOjE3MjA5MzI1MzB9.TXUbf5Yglx3eiuBkk-QZ5Kh6-wGq80u3ZDaZgK27HqI
+
+{
+	"name": "New Jeans",
+	"description": "High-quality denim jeans",
+	"price": 50,
+	"shop": "6689fe8cd865ca9e881db65b",
+	"type": "clothing",
+	"thumbnail": "thumbnail",
+	"quantity": 5,
+	"attributes": {
+		"brand": "Levi's",
+		"size": "L",
+		"material": "Denim"
+	}
+}
