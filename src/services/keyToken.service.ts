@@ -46,7 +46,7 @@ class KeyTokenService {
   };
 
   static findByShopId = async (shopId: string) => {
-    return await keyTokenModel.findOne({ shopId }).lean();
+    return await keyTokenModel.findOne({ shopId });
   };
 
   static removeById = async (id: ObjectId) => {
@@ -59,7 +59,7 @@ class KeyTokenService {
       .lean();
   };
 
-  static removeByShopId = async (shopId: string) => {
+  static removeByShopId = async (shopId: ObjectId) => {
     return await keyTokenModel.findOneAndDelete({ shopId });
   };
 

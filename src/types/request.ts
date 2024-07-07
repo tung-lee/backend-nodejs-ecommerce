@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { KeyToken } from "./keytoken";
 
 export interface SignUpRequest {
   name: string;
@@ -17,4 +18,13 @@ export interface LoginRequest {
   email: string;
   password: string;
   refreshToken?: string;
+}
+
+export interface HandleRefreshTokenRequest {
+  refreshToken: string;
+  shop: {
+    shopId: ObjectId;
+    email: string;
+  };
+  keyStore: KeyToken;
 }

@@ -1,6 +1,6 @@
 @url_dev=http://localhost:3000/v1/api
 
-# Sign up
+# # Sign up
 # POST {{url_dev}}/shop/sign-up
 # Content-Type: application/json
 # x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
@@ -25,16 +25,12 @@
 # POST {{url_dev}}/shop/logout
 # Content-Type: application/json
 # x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
-# x-shop-id: 66875ab6dc02468363b8469b
+# x-shop-id: 6689fe8cd865ca9e881db65b
 # Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg3NWFiNmRjMDI0NjgzNjNiODQ2OWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMjQ4NjAzLCJleHAiOjE3MjA0MjE0MDN9.0oe7smXJHFV7GmIs565f8hYMhnh5fQ1vpiEsMr-8Rg0
 
 # # Handle refresh token
 POST {{url_dev}}/shop/handle-refresh-token
 Content-Type: application/json
-x-shop-id: 66875ab6dc02468363b8469b
+x-shop-id: 6689fe8cd865ca9e881db65b
 x-api-key: f78a9a6f281617996a25142c14f4389bafed657743ddaa1052de567fce92b390a1c93048b8627085d7fcff02a4f5ae2672ff33e0e5e15ca8871374c895ce9c9d
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg3NWFiNmRjMDI0NjgzNjNiODQ2OWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMjUxMTI4LCJleHAiOjE3MjA0MjM5Mjh9.-NjVYPqPqgZZjJ2_rAyQtNUASJZbBKK9aZ2BgO9aB7M
-
-{
-	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg3NWFiNmRjMDI0NjgzNjNiODQ2OWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMjUxMTI4LCJleHAiOjE3MjA4NTU5Mjh9.P2QNZm03DlpvOyx1XPqOk4gxrn7sAplVwUTDU7zvXAs"
-}
+x-refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9wSWQiOiI2Njg5ZmU4Y2Q4NjVjYTllODgxZGI2NWIiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzIwMzE5ODM4LCJleHAiOjE3MjA5MjQ2Mzh9.ssm8sSHtt09o8LyCv0RCWgiEYwFTuyo3UWIJhFt4dTI

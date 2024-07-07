@@ -60,6 +60,27 @@ const authentication = async (
   if (!keyStore) throw new NotFoundError("Not found keystore");
 
   // 3.
+  const refreshToken = req.headers[Header.REFRESH_TOKEN]
+  if (refreshToken) {
+    try {
+      const payload = JWT.verify(refreshToken.toString(), keyStore.privateKey);
+  
+      // 5.
+      // @ts-ignore - fix later
+      if (shopId !== payload.shopId) {
+        throw new AuthError("Invalid ShopId");
+      }
+  
+      // @ts-ignore - fix later
+      req.keyStore = keyStore;
+      // @ts-ignore - fix later
+      req.shop = payload;
+      // @ts-ignore - fix later
+      req.refreshToken = refreshToken;
+      return next();
+    } catch (err) {}
+  }
+
   const accessToken = req.headers.authorization?.toString();
   if (!accessToken) throw new AuthError("Invalid request");
 

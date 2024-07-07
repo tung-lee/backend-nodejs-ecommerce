@@ -10,7 +10,14 @@ class AccessController {
     _next: NextFunction
   ) => {
     console.log(`[POST] /shop/handle-refresh-token`, req.body);
-    let result = await AccessService.handleRefreshToken(req.body.refreshToken);
+    let result = await AccessService.handleRefreshToken({
+      // @ts-ignore - fix later
+      refreshToken: req.refreshToken,
+      // @ts-ignore - fix later
+      keyStore: req.keyStore,
+      // @ts-ignore - fix later
+      shop: req.shop,
+    });
     return new SuccessResponse({
       message: "Get token OK!",
       metadata: result,
