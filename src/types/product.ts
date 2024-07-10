@@ -21,10 +21,12 @@ export interface Clothing {
   brand: string;
   size: string;
   material: string;
+  shopId: ObjectId;
 }
 
 export interface Electronics {
   manufacturer: string;
   model: string;
   color: string;
+  shopId: ObjectId;
 }

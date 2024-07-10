@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, Types } from "mongoose";
 import {
   clothingModel,
   electronicsModel,
@@ -49,8 +49,11 @@ class Product implements IProduct {
     this.attributes = product.attributes;
   }
 
-  async create() {
-    return await productModel.create(this);
+  async create(id: Types.ObjectId) {
+    return await productModel.create({
+      ...this,
+      _id: id,
+    });
   }
 }
 
@@ -61,9 +64,12 @@ class Clothing extends Product {
   }
 
   async create() {
-    let newClothing = await clothingModel.create(this.attributes); // Create clothing document in the db
+    let newClothing = await clothingModel.create({
+      ...this.attributes,
+      shopId: this.shopId,
+    }); // Create clothing document in the db
     if (!newClothing) throw new BadRequestError("Clothing creation failed");
-    const newProduct = super.create();
+    const newProduct = await super.create(newClothing._id);
     if (!newProduct) throw new BadRequestError("Product creation failed");
     return newProduct;
   }
@@ -76,10 +82,13 @@ class Electronics extends Product {
   }
 
   async create() {
-    let newElectronic = await electronicsModel.create(this.attributes); // Create electronics document in the db
+    let newElectronic = await electronicsModel.create({
+      ...this.attributes,
+      shopId: this.shopId,
+    }); // Create electronics document in the db
     if (!newElectronic)
       throw new BadRequestError("Electronics creation failed");
-    const newProduct = super.create();
+    const newProduct = await super.create(newElectronic._id);
     if (!newProduct) throw new BadRequestError("Product creation failed");
     return newProduct;
   }

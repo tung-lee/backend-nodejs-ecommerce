@@ -62,6 +62,10 @@ const clothingSchema = new Schema<Clothing>(
     material: {
       type: String,
     },
+    shopId: {
+      type: Schema.Types.ObjectId,
+      ref: "Shop",
+    },
   },
   {
     timestamps: true,
@@ -81,6 +85,10 @@ const electronicsSchema = new Schema<Electronics>(
     },
     color: {
       type: String,
+    },
+    shopId: {
+      type: Schema.Types.ObjectId,
+      ref: "Shop",
     },
   },
   {

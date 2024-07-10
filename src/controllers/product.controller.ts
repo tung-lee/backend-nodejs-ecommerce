@@ -9,7 +9,11 @@ class ProductController {
     _next: NextFunction
   ) => {
     console.log(`[POST] /shop/handle-refresh-token`, req.body);
-    let result = await ProductService.createProduct(req.body);
+    let result = await ProductService.createProduct({
+      ...req.body,
+      // @ts-ignore - fix later
+      shopId: req.shop.shopId,
+    });
     return new CreatedResponse({
       message: "Create new product success!",
       metadata: result,
